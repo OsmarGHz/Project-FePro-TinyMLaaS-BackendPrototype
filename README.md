@@ -1,55 +1,73 @@
 # TinyMLaaS - Backend
 
-Bienvenido al repositorio del backend de **TinyMLaaS**. A continuación se detallan las instrucciones paso a paso para configurar el entorno de desarrollo local e instalar las dependencias necesarias en sistemas Windows.
+Backend de la plataforma **TinyMLaaS** para AgroInteligencia, desarrollado con FastAPI.
 
 ---
 
-## 🛠️ Configuración del Entorno de Desarrollo (Windows)
+## 📁 Estructura del Proyecto
 
-Abre tu terminal (`Símbolo del sistema` o `PowerShell`) y sigue los pasos a continuación:
-
-### 1. Ubicación en el repositorio
-Navega hasta la carpeta raíz del proyecto:
-```bash
-cd ruta\hacia\tu\carpeta\tinymlaas
+```
+tinymlaas/
+├── main.py            # Servidor principal y configuración de CORS
+├── routers/           # Endpoints modulares
+│   ├── alerts.py      # Endpoints de alertas
+│   └── devices.py     # Endpoints de dispositivos IoT
+├── schemas/           # Schemas de Pydantic (próximamente)
+└── models/            # Modelos de datos / BD (próximamente)
 ```
 
-### 2. Creación del entorno virtual
-Crea un entorno virtual aislado para gestionar las dependencias de Python del proyecto:
+---
+
+## 🛠️ Configuración e Instalación
+
+### 1. Entorno virtual
+
+Crea y activa el entorno virtual:
+
 ```bash
 python -m venv venv
 ```
-> **Nota:** La creación del entorno puede tardar unos segundos.
 
-### 3. Activación del entorno virtual
-Es indispensable activar el entorno virtual antes de instalar paquetes o ejecutar el código:
-```bash
-venv\Scripts\activate
-```
-> **Nota de activación:** Confirmarás que el entorno está activo al visualizar la etiqueta `(venv)` al inicio de tu línea de comandos. 
-> 
-> *Si utilizas PowerShell y recibes un mensaje de error indicando que la ejecución de scripts está deshabilitada, ejecuta el siguiente comando y confirma la acción:*
-> ```powershell
-> Set-ExecutionPolicy Unrestricted -Scope CurrentUser
-> ```
+- **Windows (CMD / PowerShell):**
+  ```powershell
+  venv\Scripts\activate
+  ```
+  *(Si PowerShell bloquea la ejecución de scripts, ejecuta: `Set-ExecutionPolicy Unrestricted -Scope CurrentUser`)*
 
-### 4. Instalación de dependencias
-Con el entorno virtual activado, procede a instalar FastAPI junto con su servidor web (Uvicorn):
-```bash
-pip install "fastapi[standard]"
-```
+### 2. Instalación de dependencias
 
-Para instalar todas las dependencias ya registradas por el equipo, puedes ejecutar:
+Con el entorno activo `(venv)`, instala los paquetes del proyecto:
+
 ```bash
 pip install -r requirements.txt
 ```
 
-### 5. Registro de dependencias (`requirements.txt`)
-Para registrar y congelar la versión exacta de las dependencias instaladas y permitir que el resto del equipo replique el entorno sin discrepancias, ejecuta:
+---
+
+## 🚀 Ejecución del Servidor
+
+Para levantar el servidor de desarrollo con recarga automática:
+
 ```bash
-pip freeze > requirements.txt
+fastapi dev main.py
 ```
+
+El servidor estará corriendo en: `http://127.0.0.1:8000`
 
 ---
 
-Una vez finalizada la configuración inicial, la infraestructura base estará lista para continuar con la implementación de servicios, endpoints de la API y la conexión con PostgreSQL.
+## 🧪 Prueba de Endpoints
+
+Endpoints simulados disponibles:
+
+- **Healthcheck:** `GET http://127.0.0.1:8000/`
+- **Alertas:** `GET http://127.0.0.1:8000/api/alerts`
+- **Dispositivos IoT:** `GET http://127.0.0.1:8000/api/devices`
+
+### 📖 Documentación Interactiva (Swagger UI)
+
+Accede a la documentación automática de FastAPI en el navegador:
+
+👉 **[http://127.0.0.1:8000/docs](http://127.0.0.1:8000/docs)**
+
+Desde ahí puedes probar los endpoints usando el botón **"Try it out"** y luego **"Execute"**.
